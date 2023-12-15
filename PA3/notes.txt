@@ -1,0 +1,44 @@
+Documents:
+    - PA1: Multiple data points  -- in sequence
+      one data requeest wait for server to reply and then again
+    - PA3 - make it more efficient and faster
+    in server when process data message we add microsleep 
+    - threads : one taking significantly longer than the other and our system will be dependent on the longer one
+    - production ans consumption 
+    - design the request buffer 
+    - make it thread safe
+    - avoid overflow and underflwow
+
+Client :
+    - need to join() threads after making them
+
+Data Transfer:
+    - create p-threads to produce datamsgs(with ecg1)
+    - create with FIFI for workers to use
+    - create w-threads to consume and process datamsgs
+        -> worker threads produce results of process datamsgs 
+    - craate h-threads to consume results and populate histograms( with update() function)
+
+
+Histogram uses mutex to avoid race conditions 
+
+File Transfer:
+    - collect file size
+    - create a data thread and produce filemsgs
+    - create w-threads to consume and process filemsgs
+        ->use fseek( with SEEK_SET) to write to a file(open mode important)
+
+BoundedBuffer:
+    - STL QUEUE WITH OBJECTS vector<char>
+    - use a mutex and cond var
+        -> mutex is wrapped in unique_lock (pointer wrapper)
+    - push waites on size < cap; motify pop that data is available
+    - pop waits on size > 0; notify psh that slot is available (cond var)
+
+PPT
+code
+BB coverage 
+Threaded design 
+Threaded -> Sequential
+Sequential design
+Testing
