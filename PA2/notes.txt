@@ -1,0 +1,41 @@
+implementing our own linux shell
+
+need to handle multiple commands:
+
+command pipelining -- output of one commans becomes input of next command
+   use command vector to create pipeline
+   refer to Lab3, unanamed pipes, pipe()/dup()/dup2()
+
+
+I/O redirection:
+ output redirection -- chnage stdout to file
+   open the file for writing as a file descriptor
+   se dup2 to redirect stdout (1) to ^ fd
+ input redirection -- change stdin from file
+   open the file for reading as a file descriptor
+   se dup2 to redirect stdin (0) from ^ fd
+
+fd = open(filename)
+dup fd over stdin or stdout
+
+I/O redirection can be together
+
+
+files for redirection are stored in command class
+
+Background Processes:
+    handle commans that run background
+        return the user prompt to user control until command is done 
+        use command->isBackground()
+        store pid from fork() in vector of background Processes
+        before prompting user, iterate over vector to reap Processes
+        make waitpid() non-blocking for background Processes
+
+cd commands;
+    cd use chdir()
+    cd -- > keep track of previous directory
+    use getcwd()
+
+user prompts:
+    date/time, user name, abs path of cwd
+    getlogin() and getcwd()
