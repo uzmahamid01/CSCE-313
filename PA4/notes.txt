@@ -1,0 +1,16 @@
+for client
+    -a option for ip address (default 127.0.0.1)
+    -r option for port number (default 8080)
+
+for server
+    - r option: port number (default 8080)
+
+for TCPRequestChannel:
+    - in client/server, replace request channel instances with TCPRequestChannel
+
+no new need for creating a new channel request
+
+
+in client.cpp:
+change all instances for FIFO to TCPRequestChannel
+getopt, add a and r
